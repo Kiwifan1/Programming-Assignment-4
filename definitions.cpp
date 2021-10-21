@@ -36,6 +36,27 @@ int randomIdGenerator()
     return (randIndex);
 }
 
+
+PlayerCard::PlayerCard()
+{
+    PlayerCard("", -1);
+}
+
+PlayerCard::PlayerCard(string name, int id)
+{
+    this->name = name;
+    if(id == -1){
+        generatePlayerId();
+    }
+    else{
+        setPlayerId(id);
+    }
+    this->name = name;
+    this->totalScore = 0;
+    this->averageScore = 0.0;
+    this->numGamesPlayed = 0;
+}
+
 /**
  * Name: Joshua Venable
  * Date created: 10/20/21
@@ -117,7 +138,7 @@ double PlayerCard::getAverage() const
  **/
 void PlayerCard::setPlayerId(int id)
 {
-    return;
+    this->playerId = id;
 }
 
 /**
@@ -131,7 +152,99 @@ void PlayerCard::setPlayerId(int id)
  **/
 void PlayerCard::setAverage(double average)
 {
-    return;
+    this->averageScore = average;
+}
+
+/**
+ * Name: Joshua Venable
+ * Date created: 10/20/21
+ * Date last modified: 10/20/21
+ * Description: 
+ * @return 
+ * @pre 
+ * @post 
+ **/
+void PlayerCard::generatePlayerId(void)
+{
+    int randomId = randomIdGenerator();
+    PlayerCard::setPlayerId(randomId);
+}
+
+/**
+ * Name: Joshua Venable
+ * Date created: 10/20/21
+ * Date last modified: 10/20/21
+ * Description: 
+ * @return 
+ * @pre 
+ * @post 
+ **/
+void PlayerCard::generatePlayerId(int id)
+{
+    PlayerCard::setPlayerId(id);
+}
+
+/**
+ * Name: Joshua Venable
+ * Date created: 10/20/21
+ * Date last modified: 10/20/21
+ * Description: 
+ * @return 
+ * @pre 
+ * @post 
+ **/
+void PlayerCard::updateAverageScore(void)
+{
+    double averageScore;
+    if(this->totalScore == 0)
+    {
+        setAverage(0);
+        return;
+    }
+    averageScore = ((double)this->totalScore / (double)this->numGamesPlayed);
+    setAverage(averageScore);
+}
+
+/**
+ * Name: Joshua Venable
+ * Date created: 10/20/21
+ * Date last modified: 10/20/21
+ * Description: 
+ * @return 
+ * @pre 
+ * @post 
+ **/
+void PlayerCard::setName(string name)
+{
+    this->name = name;
+}
+
+/**
+ * Name: Joshua Venable
+ * Date created: 10/20/21
+ * Date last modified: 10/20/21
+ * Description: 
+ * @return 
+ * @pre 
+ * @post 
+ **/
+void PlayerCard::setGames(int numGames)
+{
+    this->numGamesPlayed = numGames;
+}
+
+/**
+ * Name: Joshua Venable
+ * Date created: 10/20/21
+ * Date last modified: 10/20/21
+ * Description: 
+ * @return 
+ * @pre 
+ * @post 
+ **/
+void PlayerCard::setScore(int score)
+{
+    this->totalScore = score;
 }
 
 /**
@@ -168,9 +281,9 @@ void tossDart(PlayerCard& player)
     }
 
     //increments player data
-    player.numGamesPlayed ++;
-    player.totalScore += randThrow;
-    player.averageScore = ((double)player.totalScore/(double)player.numGamesPlayed);
+    player.setGames(player.getNumGames() + 1);
+    player.setScore(player.getScore() + randThrow);
+    player.updateAverageScore();
 }
 
 /**
@@ -218,11 +331,14 @@ int endOfName(char name[])
 void initializePlayerScoreCard(PlayerCard* player)
 {
     //storing data
-    getline(cin, player->name);
-    player->playerId = randomIdGenerator();
-    player->totalScore = 0;
-    player->numGamesPlayed = 0;
-    player->averageScore = 0.0;
+    string name;
+    cout << "Please enter a player name (first and last separated by a space):\n";
+    getline(cin, name);
+    player->setName(name);
+    player->generatePlayerId();
+    player->setGames(0);
+    player->setScore(0);
+    player->updateAverageScore();
 }
 
 /**
@@ -238,19 +354,19 @@ void initializePlayerScoreCard(PlayerCard* player)
 void printPlayerScoreCard(const PlayerCard& player)
 {
     //prints out player data passed in
-    cout << "-----------------------|PID:" << player.playerId << "|\n";
-    cout << player.name << "'s Score Card\n--------------------------------\n";
-    cout << "Games Played: " << player.numGamesPlayed << endl;
-    cout << "Running Score: " << player.totalScore << endl;
+    cout << "-----------------------|PID:" << player.getPlayerId() << "|\n";
+    cout << player.getName() << "'s Score Card\n--------------------------------\n";
+    cout << "Games Played: " << player.getNumGames() << endl;
+    cout << "Running Score: " << player.getScore() << endl;
 
     //if the player hasn't played a game, then this is printed
-    if(player.numGamesPlayed == 0)
+    if(player.getNumGames() == 0)
     {
         cout << "No games played\n";
     }
     else
     {
-        cout << "Average Score: " << player.averageScore << endl;
+        cout << "Average Score: " << player.getAverage() << endl;
     }
     cout << "--------------------------------\n\n";
 }
@@ -324,6 +440,9 @@ void importPlayerScoreCards(ifstream& inputFile, PlayerCard** scoreCards, int* s
     string tempWord; //char array for getting the player first name
     string tempWord2; // char array for getting player last name
     string name; //name of the player
+    int id;
+    int totalScore;
+    int numGamesPlayed;
     int indexOfLastLetter; //the index of the laster letter of the first name
     int playerDataType = 0; //the type of data grabbed from the file in the 5 row format
     double averageScore = 0.0; //the average score of the player
@@ -345,26 +464,29 @@ void importPlayerScoreCards(ifstream& inputFile, PlayerCard** scoreCards, int* s
                 {
                 //handles the player ID
                 case 0:
-                    istringstream(tempWord) >> playerPtr->playerId;
+                    istringstream(tempWord) >> id;
+                    playerPtr->generatePlayerId(id);
                     playerDataType ++;
                     break;
                 
                 //handles the player's total score
                 case 2:
-                    istringstream(tempWord) >> playerPtr->totalScore;
+                    istringstream(tempWord) >> totalScore;
+                    playerPtr->setScore(totalScore);
                     playerDataType ++;
                     break;
 
                 //handles the player's total games played
                 case 3:
-                    istringstream(tempWord) >> playerPtr->numGamesPlayed;
+                    istringstream(tempWord) >> numGamesPlayed;
+                    playerPtr->setGames(numGamesPlayed);
                     playerDataType ++;
                     break;
 
                 //handles the player's average score
                 case 4:
-                    istringstream(tempWord) >> playerPtr->averageScore;
-                    playerPtr->averageScore = averageScore;
+                    istringstream(tempWord) >> averageScore;
+                    playerPtr->updateAverageScore();
                     playerDataType = 0;
                     pushBackPlayerCard(scoreCards, size, player);
                     break;
@@ -378,7 +500,7 @@ void importPlayerScoreCards(ifstream& inputFile, PlayerCard** scoreCards, int* s
                 inputFile >> tempWord2;
 
                 name = tempWord + " " + tempWord2;
-                player.name = name;
+                player.setName(name);
                 playerDataType ++;
             }
         }

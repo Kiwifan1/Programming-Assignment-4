@@ -33,9 +33,11 @@ private:
     int playerId, numGamesPlayed, totalScore;
     string name;
     double averageScore;
+    void setPlayerId(int id);
+    void setAverage(double average);
 public:
     PlayerCard();
-    PlayerCard(string name, int id = 0);
+    PlayerCard(string name, int id = -1);
 
     //getters
     int getPlayerId() const;
@@ -43,15 +45,13 @@ public:
     int getScore() const;
     string getName() const;
     double getAverage() const;
-    void setPlayerId(int id);
-    void setAverage(double average);
-
+    
     //setters
     void generatePlayerId(void);
-    void generatePlayerId(int);
+    void generatePlayerId(int id);
     void updateAverageScore(void);
     void setName(string name);
-    void addGame();
+    void setGames(int numGames);
     void setScore(int score);
 };
 

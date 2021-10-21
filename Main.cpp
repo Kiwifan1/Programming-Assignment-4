@@ -29,7 +29,6 @@ int main()
 
     srand(time(0)); //set random seed
     cout << "Welcome to the game of darts!\nIt's completely skill-based and not random luck, I promise!\n...\n*wink*" << endl;
-    cout << "Please enter a player name (first and last separated by a space):\n";
     
     initializePlayerScoreCard(playerOnePtr);
         
