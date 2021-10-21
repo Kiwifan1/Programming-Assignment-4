@@ -1,21 +1,16 @@
 /**
  * Name: Joshua Venable
  * Class: CPSC 122, Fall 2021
- * Date Created: October 6, 2021
- * Programming Assignment: PA3
+ * Date Created: October 20, 2021
+ * Programming Assignment: PA4
  * Description: A program designed to showcase structures and c string library usage, while creating a dart throwing minigame within console
  * Notes:
- *  - Used Gaddis 3.7 to help with double rounding to 2 decimal points
- *  - I am attempting the extra credit    
+ *  
  * 
  * Last Updated:
- *  10/6/21 - initialized
- *  10/6/21 - randomIdGenerator, initializePlayerCard, and printPlayerScoreCard all completed
- *  10/11/21 - edited randomNum generators, as well as creating openFile and importPlayerScoreCards
- *  10/11/21 - built findLastName, importFile, and importPlayerScoreCards, fixed addition of player points (error with rounding average)
- *  10/13/21 - fixed double to 2 decimal places
- *  10/14/21 - added comments
- *  10/15/21 - Created Dynamic array
+ *  10/20/21 - edited definitions to deal with strings instead of cstrings
+ *  10/20/21 - created getter methods
+ * 
  * */
 
 
@@ -39,6 +34,104 @@ int randomIdGenerator()
     int randIndex;
     randIndex = (rand() % 10000) + 1000; //random index between 1000 and 9999 inclusive
     return (randIndex);
+}
+
+/**
+ * Name: Joshua Venable
+ * Date created: 10/20/21
+ * Date last modified: 10/20/21
+ * Description: returns the ID of the player object
+ * @return the integer representing the ID of the object
+ * @pre unknown ID number
+ * @post returned ID number
+ **/
+int PlayerCard::getPlayerId() const
+{
+    return this->playerId;
+}
+
+/**
+ * Name: Joshua Venable
+ * Date created: 10/20/21
+ * Date last modified: 10/20/21
+ * Description: returns the number of games a player has played in total
+ * @return the total amount of games played
+ * @pre unknown total games played
+ * @post returned total games played
+ **/
+int PlayerCard::getNumGames() const
+{
+    return this->numGamesPlayed;
+}
+
+/**
+ * Name: Joshua Venable
+ * Date created: 10/20/21
+ * Date last modified: 10/20/21
+ * Description: returns the total score of a player
+ * @return the total score of specific player object
+ * @pre unknown total player score
+ * @post returned total player score
+ **/
+int PlayerCard::getScore() const
+{
+    return this->totalScore;
+}
+
+/**
+ * Name: Joshua Venable
+ * Date created: 10/20/21
+ * Date last modified: 10/20/21
+ * Description: returns the name of the player object
+ * @return string of the player name
+ * @pre unknown player name
+ * @post returned player name as string
+ **/
+string PlayerCard::getName() const
+{
+    return this->name;
+}
+
+/**
+ * Name: Joshua Venable
+ * Date created: 10/20/21
+ * Date last modified: 10/20/21
+ * Description: returns the average of the player's games
+ * @return double average of games of object
+ * @pre unknown average
+ * @post returned average score
+ **/
+double PlayerCard::getAverage() const
+{
+    return this->averageScore;
+}
+
+/**
+ * Name: Joshua Venable
+ * Date created: 10/20/21
+ * Date last modified: 10/20/21
+ * Description: 
+ * @return 
+ * @pre 
+ * @post 
+ **/
+void PlayerCard::setPlayerId(int id)
+{
+    return;
+}
+
+/**
+ * Name: Joshua Venable
+ * Date created: 10/20/21
+ * Date last modified: 10/20/21
+ * Description: 
+ * @return 
+ * @pre 
+ * @post 
+ **/
+void PlayerCard::setAverage(double average)
+{
+    return;
 }
 
 /**

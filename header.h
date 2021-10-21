@@ -1,17 +1,15 @@
 /**
+/**
  * Name: Joshua Venable
  * Class: CPSC 122, Fall 2021
- * Date Created: October 6, 2021
- * Programming Assignment: PA3
+ * Date Created: October 20, 2021
+ * Programming Assignment: PA4
  * Description: A program designed to showcase structures and c string library usage, while creating a dart throwing minigame within console
  * Notes:
- *  - Used Gaddis 3.7 to help with double rounding to 2 decimal points
- *  - I am attempting the extra credit    
+ *  
  * 
  * Last Updated:
- *  10/6/21 - created w/ basic libraries included
- *  10/13/21 - added <iomanip> for double manipulation
- *  10/14/21 - removed unneeded libraries
+ *  10/20/21 - edited header to deal with strings instead of cstrings
  **/
 
 #ifndef HEADER_H
@@ -28,12 +26,33 @@ using namespace std;
 
 const int MAX_NAME_SIZE = 30; //global constant variable for max name length
 
-//PlayerCard Structure
-struct PlayerCard
+//PlayerCard Class
+class PlayerCard
 {
+private:
     int playerId, numGamesPlayed, totalScore;
     string name;
     double averageScore;
+public:
+    PlayerCard();
+    PlayerCard(string name, int id = 0);
+
+    //getters
+    int getPlayerId() const;
+    int getNumGames() const;
+    int getScore() const;
+    string getName() const;
+    double getAverage() const;
+    void setPlayerId(int id);
+    void setAverage(double average);
+
+    //setters
+    void generatePlayerId(void);
+    void generatePlayerId(int);
+    void updateAverageScore(void);
+    void setName(string name);
+    void addGame();
+    void setScore(int score);
 };
 
 int randomIdGenerator();

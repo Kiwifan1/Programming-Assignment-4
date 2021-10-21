@@ -1,21 +1,14 @@
 /**
  * Name: Joshua Venable
  * Class: CPSC 122, Fall 2021
- * Date Created: October 6, 2021
- * Programming Assignment: PA3
+ * Date Created: October 20, 2021
+ * Programming Assignment: PA4
  * Description: A program designed to showcase structures and c string library usage, while creating a dart throwing minigame within console
  * Notes:
- *  - Used Gaddis 3.7 to help with double rounding to 2 decimal points
- *  - I am attempting the extra credit
+ *  
  * 
  * Last Updated:
- *  10/6/21 - Initialized main and PlayerCard
- *  10/6/21 - added first part of loop (error with not taking cin right now)
- *  10/11/21 - fixed taking cin, added random seed to main instead of in function call every time
- *  10/11/21 - finished off printing all other players, average score not working correctly
- *  10/13/21 - Fixed double going to 2 decimal places
- *  10/14/21 - added comments
- *  10/15/21 - Created dynamic array
+ *  10/20/21 - edited main to deal with strings instead of cstrings
  **/
 
 #include "header.h"
