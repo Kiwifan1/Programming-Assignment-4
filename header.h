@@ -17,11 +17,12 @@
 #ifndef HEADER_H
 #define HEADER _H
 
-#include <cstring>
 #include <vector>
 #include <iostream>
 #include <fstream>
+#include <sstream>
 #include <iomanip>
+#include <string>
 
 using namespace std;
 
@@ -31,7 +32,7 @@ const int MAX_NAME_SIZE = 30; //global constant variable for max name length
 struct PlayerCard
 {
     int playerId, numGamesPlayed, totalScore;
-    char name[MAX_NAME_SIZE];
+    string name;
     double averageScore;
 };
 

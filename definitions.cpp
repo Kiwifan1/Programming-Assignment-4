@@ -125,7 +125,7 @@ int endOfName(char name[])
 void initializePlayerScoreCard(PlayerCard* player)
 {
     //storing data
-    cin.getline(player->name, MAX_NAME_SIZE);
+    getline(cin, player->name);
     player->playerId = randomIdGenerator();
     player->totalScore = 0;
     player->numGamesPlayed = 0;
@@ -215,7 +215,7 @@ void pushBackPlayerCard(PlayerCard** playerCard, int* size, PlayerCard newPlayer
 /**
  * Function: importPlayerScoreCards()
  * Date Created: 10/6/21
- * Date Last Modified: 10/11/21
+ * Date Last Modified: 10/20/21
  * Description: Imports all of the people data from an input file and holds it in a vector
  * @param inputFile the input file to be read from
  * @param scoreCards the vector holding all the personal files
@@ -225,10 +225,12 @@ void pushBackPlayerCard(PlayerCard** playerCard, int* size, PlayerCard newPlayer
  * */
 void importPlayerScoreCards(ifstream& inputFile, PlayerCard** scoreCards, int* size)
 {
+    stringstream scanner;
     PlayerCard player; //the player being imported 
     PlayerCard* playerPtr = &player; // a pointer to the player data
-    char tempWord[MAX_NAME_SIZE]; //char array for getting the player first name
-    char tempWord2[MAX_NAME_SIZE]; // char array for getting player last name
+    string tempWord; //char array for getting the player first name
+    string tempWord2; // char array for getting player last name
+    string name; //name of the player
     int indexOfLastLetter; //the index of the laster letter of the first name
     int playerDataType = 0; //the type of data grabbed from the file in the 5 row format
     double averageScore = 0.0; //the average score of the player
@@ -250,25 +252,25 @@ void importPlayerScoreCards(ifstream& inputFile, PlayerCard** scoreCards, int* s
                 {
                 //handles the player ID
                 case 0:
-                    playerPtr->playerId = atoi(tempWord);
+                    istringstream(tempWord) >> playerPtr->playerId;
                     playerDataType ++;
                     break;
                 
                 //handles the player's total score
                 case 2:
-                    playerPtr->totalScore = atoi(tempWord);
+                    istringstream(tempWord) >> playerPtr->totalScore;
                     playerDataType ++;
                     break;
 
                 //handles the player's total games played
                 case 3:
-                    playerPtr->numGamesPlayed = atoi(tempWord);
+                    istringstream(tempWord) >> playerPtr->numGamesPlayed;
                     playerDataType ++;
                     break;
 
                 //handles the player's average score
                 case 4:
-                    averageScore = atof(tempWord);
+                    istringstream(tempWord) >> playerPtr->averageScore;
                     playerPtr->averageScore = averageScore;
                     playerDataType = 0;
                     pushBackPlayerCard(scoreCards, size, player);
@@ -279,17 +281,11 @@ void importPlayerScoreCards(ifstream& inputFile, PlayerCard** scoreCards, int* s
             //handles the player's name
             else
             {
-                indexOfLastLetter = endOfName(tempWord);
-
-                //if the last letter isn't the end of the array
-                if(indexOfLastLetter != -1)
-                {
-                    tempWord[indexOfLastLetter + 1] = ' ';
-                }
                 //concatenates the two words together with the space in between them
                 inputFile >> tempWord2;
-                strcat_s(tempWord, MAX_NAME_SIZE, tempWord2);
-                strcpy_s(player.name, MAX_NAME_SIZE, tempWord);
+
+                name = tempWord + " " + tempWord2;
+                player.name = name;
                 playerDataType ++;
             }
         }
