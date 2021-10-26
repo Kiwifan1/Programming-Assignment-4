@@ -4,7 +4,7 @@
  * Date Created: October 20, 2021
  * Programming Assignment: PA4
  * Description: A program designed to showcase structures and c string library usage, while creating a dart throwing minigame within console
- * Notes:
+ * Notes: Very little had to be changed for my main.cpp, this is because I'm not changing the game, and there isn't really anything depending on how I set it up previously
  *  
  * 
  * Last Updated:
@@ -62,11 +62,9 @@ int main()
     importPlayerScoreCards(infile, &scoreCardsPtr, scoreCardsSizePtr);
     
     cout << "See how your score compares to previous players:\n";
-    for (int i = 0; i < scoreCardsSize; i++)
-    {
-        printPlayerScoreCard(scoreCardsPtr[i]);
-        cout << endl << endl;
-    }
+    
+    printAllPlayerCards(scoreCardsPtr, scoreCardsSize);
+
     delete[] scoreCardsPtr;
     return 0;
 }

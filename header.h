@@ -10,6 +10,9 @@
  * 
  * Last Updated:
  *  10/20/21 - edited header to deal with strings instead of cstrings
+ *  10/21/21 - changed struct PlayerCard to a class, added functions for it
+ *  10/22/21 - added more functions to PlayerCard (both accessors, and mutators)
+ *  10/26/21 - added helper printing function
  **/
 
 #ifndef HEADER_H
@@ -56,6 +59,8 @@ public:
 };
 
 int randomIdGenerator();
+
+void printAllPlayerCards(PlayerCard *scoreCardsPtr, int scoreCardsSize);
 
 void tossDart(PlayerCard& player);
 

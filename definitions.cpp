@@ -10,7 +10,9 @@
  * Last Updated:
  *  10/20/21 - edited definitions to deal with strings instead of cstrings
  *  10/20/21 - created getter methods
- * 
+ *  10/21/21 - created some getter and some setter methods
+ *  10/21-22/21 - edited a majority of the functions, so that they were able to use the player functions, rather than accessing directly
+ *  10/26/21 - added more javadoc comments
  * */
 
 
@@ -131,10 +133,11 @@ double PlayerCard::getAverage() const
  * Name: Joshua Venable
  * Date created: 10/20/21
  * Date last modified: 10/20/21
- * Description: 
- * @return 
- * @pre 
- * @post 
+ * Description: Sets the player object's id from a parameter
+ * @param id the integer of id to be set
+ * @return nothing
+ * @pre an empty id identifier for a player
+ * @post a set id identifier for a player
  **/
 void PlayerCard::setPlayerId(int id)
 {
@@ -145,10 +148,11 @@ void PlayerCard::setPlayerId(int id)
  * Name: Joshua Venable
  * Date created: 10/20/21
  * Date last modified: 10/20/21
- * Description: 
- * @return 
- * @pre 
- * @post 
+ * Description: sets the average score for a player from a parameter
+ * @param average the average score passed as a double
+ * @return nothing
+ * @pre an empty average score
+ * @post a filled average score for player object
  **/
 void PlayerCard::setAverage(double average)
 {
@@ -159,10 +163,10 @@ void PlayerCard::setAverage(double average)
  * Name: Joshua Venable
  * Date created: 10/20/21
  * Date last modified: 10/20/21
- * Description: 
- * @return 
- * @pre 
- * @post 
+ * Description: generates a player id in case the player does not have one yet
+ * @return nothing
+ * @pre an unknown player ID
+ * @post a set and known player ID set
  **/
 void PlayerCard::generatePlayerId(void)
 {
@@ -174,10 +178,11 @@ void PlayerCard::generatePlayerId(void)
  * Name: Joshua Venable
  * Date created: 10/20/21
  * Date last modified: 10/20/21
- * Description: 
- * @return 
- * @pre 
- * @post 
+ * Description: overloaded function generating player Id if the id is given as a a parameter
+ * @param id the id going to be set to player
+ * @return nothing
+ * @pre unknown player id
+ * @post a known and set player id from parameter
  **/
 void PlayerCard::generatePlayerId(int id)
 {
@@ -188,10 +193,10 @@ void PlayerCard::generatePlayerId(int id)
  * Name: Joshua Venable
  * Date created: 10/20/21
  * Date last modified: 10/20/21
- * Description: 
- * @return 
- * @pre 
- * @post 
+ * Description: updates the average score whenever a score is hit for the player object
+ * @return nothing
+ * @pre the previous average score for games
+ * @post the new average score
  **/
 void PlayerCard::updateAverageScore(void)
 {
@@ -209,10 +214,11 @@ void PlayerCard::updateAverageScore(void)
  * Name: Joshua Venable
  * Date created: 10/20/21
  * Date last modified: 10/20/21
- * Description: 
- * @return 
- * @pre 
- * @post 
+ * Description: sets the name of the player from parameter
+ * @param name the name of player as a string
+ * @return nothing
+ * @pre unknown player name
+ * @post known and set player name
  **/
 void PlayerCard::setName(string name)
 {
@@ -223,10 +229,11 @@ void PlayerCard::setName(string name)
  * Name: Joshua Venable
  * Date created: 10/20/21
  * Date last modified: 10/20/21
- * Description: 
- * @return 
- * @pre 
- * @post 
+ * Description: sets the total amount of games played of a players
+ * @param numGames the total amount of games played
+ * @return nothing
+ * @pre the previous amount of total games played
+ * @post the new amount of total games played
  **/
 void PlayerCard::setGames(int numGames)
 {
@@ -237,15 +244,37 @@ void PlayerCard::setGames(int numGames)
  * Name: Joshua Venable
  * Date created: 10/20/21
  * Date last modified: 10/20/21
- * Description: 
- * @return 
- * @pre 
- * @post 
+ * Description: sets the total score of the player from parameter
+ * @param score the score of player as an integer to be updated to the object
+ * @return nothing
+ * @pre the previous score held in object
+ * @post the new score held in object
  **/
 void PlayerCard::setScore(int score)
 {
     this->totalScore = score;
 }
+
+/**
+ * Name: Joshua Venable
+ * Date created: 10/26/21
+ * Date last modified: 10/26/21
+ * Description: simple helper function that prints out all of the imported players
+ * @param scoreCardsPtr the pointer to the playerCards array holding all the players imported
+ * @param scoreCardsSize the size of the aray of scoreCardsPtr
+ * @return nothing
+ * @pre non printed out but held imported players
+ * @post printed out all players
+ **/
+void printAllPlayerCards(PlayerCard *scoreCardsPtr, int scoreCardsSize)
+{
+    for (int i = 0; i < scoreCardsSize; i++)
+    {
+        printPlayerScoreCard(scoreCardsPtr[i]);
+        cout << endl << endl;
+    }
+}
+
 
 /**
  * Function: tossDart()
