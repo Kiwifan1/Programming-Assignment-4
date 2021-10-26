@@ -484,7 +484,7 @@ void pushBackPlayerCard(PlayerCard** playerCard, int* size, PlayerCard newPlayer
 /**
  * Function: importPlayerScoreCards()
  * Date Created: 10/6/21
- * Date Last Modified: 10/20/21
+ * Date Last Modified: 10/26/21
  * Description: Imports all of the people data from an input file and holds it in a vector
  * @param inputFile the input file to be read from
  * @param scoreCards the vector holding all the personal files
