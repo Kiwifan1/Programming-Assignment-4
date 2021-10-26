@@ -12,7 +12,7 @@
  *  10/20/21 - created getter methods
  *  10/21/21 - created some getter and some setter methods
  *  10/21-22/21 - edited a majority of the functions, so that they were able to use the player functions, rather than accessing directly
- *  10/26/21 - added more javadoc comments
+ *  10/26/21 - added more javadoc comments, deprecated the array
  * */
 
 
@@ -39,11 +39,29 @@ int randomIdGenerator()
 }
 
 
+/**
+ * Name: Joshua Venable
+ * Date created: 10/21/21
+ * Date last modified: 10/26/21
+ * Description: default constructor for player object
+ * @pre unmade player object
+ * @post player object held in memory
+ **/
 PlayerCard::PlayerCard()
 {
     PlayerCard("", -1);
 }
 
+/**
+ * Name: Joshua Venable
+ * Date created: 10/21/21
+ * Date last modified: 10/26/21
+ * Description: constructor making the player Object with parameters
+ * @param name the string of the name going to be set
+ * @param id the number of id going to be set
+ * @pre unmade player object
+ * @post player object held in memory
+ **/
 PlayerCard::PlayerCard(string name, int id)
 {
     this->name = name;
@@ -57,6 +75,19 @@ PlayerCard::PlayerCard(string name, int id)
     this->totalScore = 0;
     this->averageScore = 0.0;
     this->numGamesPlayed = 0;
+}
+
+/**
+ * Name: Joshua Venable
+ * Date created: 10/26/21
+ * Date last modified: 10/26/21
+ * Description: destructor for playerCard Object
+ * @pre object of player
+ * @post freed memory
+ **/
+PlayerCard::~PlayerCard()
+{
+    
 }
 
 /**
@@ -260,17 +291,16 @@ void PlayerCard::setScore(int score)
  * Date created: 10/26/21
  * Date last modified: 10/26/21
  * Description: simple helper function that prints out all of the imported players
- * @param scoreCardsPtr the pointer to the playerCards array holding all the players imported
- * @param scoreCardsSize the size of the aray of scoreCardsPtr
+ * @param scoreCards the vector holding all the player data
  * @return nothing
  * @pre non printed out but held imported players
  * @post printed out all players
  **/
-void printAllPlayerCards(PlayerCard *scoreCardsPtr, int scoreCardsSize)
+void printAllPlayerCards(vector<PlayerCard> scoreCards)
 {
-    for (int i = 0; i < scoreCardsSize; i++)
+    for (int i = 0; i < scoreCards.size(); i++)
     {
-        printPlayerScoreCard(scoreCardsPtr[i]);
+        printPlayerScoreCard(scoreCards.at(i));
         cout << endl << endl;
     }
 }
@@ -425,6 +455,7 @@ bool openFile(ifstream& infile)
  * Date Created: 10/14/21
  * Date Last Modified: 10/14/21
  * Description: to act as a pushback function for dynamically allocated array
+ * @deprecated no longer needed because I switched back to a vector
  * @param playerCard a pointer to an array of the playerCards
  * @param size the pointer to the size of the array
  * @param newPlayerCardData the new player card added to the array
@@ -461,10 +492,10 @@ void pushBackPlayerCard(PlayerCard** playerCard, int* size, PlayerCard newPlayer
  * @pre an unopened and unread inputFile
  * @post an output parameter vector of playerCards
  * */
-void importPlayerScoreCards(ifstream& inputFile, PlayerCard** scoreCards, int* size)
+void importPlayerScoreCards(ifstream& inputFile, vector<PlayerCard>& scoreCards)
 {
     stringstream scanner;
-    PlayerCard player; //the player being imported 
+    PlayerCard player = PlayerCard(); //the player being imported 
     PlayerCard* playerPtr = &player; // a pointer to the player data
     string tempWord; //char array for getting the player first name
     string tempWord2; // char array for getting player last name
@@ -517,7 +548,7 @@ void importPlayerScoreCards(ifstream& inputFile, PlayerCard** scoreCards, int* s
                     istringstream(tempWord) >> averageScore;
                     playerPtr->updateAverageScore();
                     playerDataType = 0;
-                    pushBackPlayerCard(scoreCards, size, player);
+                    scoreCards.push_back(*playerPtr);
                     break;
                 }
             }

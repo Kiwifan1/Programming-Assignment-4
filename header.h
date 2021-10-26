@@ -41,6 +41,7 @@ private:
 public:
     PlayerCard();
     PlayerCard(string name, int id = -1);
+    ~PlayerCard();
 
     //getters
     int getPlayerId() const;
@@ -60,7 +61,7 @@ public:
 
 int randomIdGenerator();
 
-void printAllPlayerCards(PlayerCard *scoreCardsPtr, int scoreCardsSize);
+void printAllPlayerCards(vector<PlayerCard> scoreCards);
 
 void tossDart(PlayerCard& player);
 
@@ -74,7 +75,7 @@ void initializePlayerScoreCard(PlayerCard* player);
 
 void printPlayerScoreCard(const PlayerCard& player);
 
-void importPlayerScoreCards(ifstream& inputFile, PlayerCard** scoreCards, int* size);
+void importPlayerScoreCards(ifstream& inputFile, vector<PlayerCard>& scoreCards);
 
 
 

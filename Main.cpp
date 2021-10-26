@@ -9,20 +9,17 @@
  * 
  * Last Updated:
  *  10/20/21 - edited main to deal with strings instead of cstrings
+ *  10/26/21 - moved back to vector not array
  **/
 
 #include "header.h"
 
 int main()
 {
-    PlayerCard playerOne; //declares a playercard struct variable
+    PlayerCard playerOne = PlayerCard(); //declares a playercard struct variable
     PlayerCard* playerOnePtr = &playerOne;
     ifstream infile; //read from input file
-    //vector<PlayerCard> scoreCards;
-    //PlayerCard scoreCards[1]; //dynamic array to the score cards from input file
-    PlayerCard *scoreCardsPtr = new PlayerCard[0]; //pointer to dynamic array scoreCards
-    int scoreCardsSize = 0; //size of scoreCards Dynamic array
-    int *scoreCardsSizePtr = &scoreCardsSize; //pointer to size of scoreCards dynamic array
+    vector<PlayerCard> scoreCards;
     bool play = true; //controls the game loop
     int hit = 0; // keeps track of hit sUsed Gaddis 3.7 to help with double rounding to 2 decimal pointscore for each throw
     char choice = '\0'; //keeps track of play/not play choice
@@ -59,12 +56,10 @@ int main()
     cout << endl << endl;
 
     //imports and prints out all opponent score cards
-    importPlayerScoreCards(infile, &scoreCardsPtr, scoreCardsSizePtr);
+    importPlayerScoreCards(infile, scoreCards);
     
     cout << "See how your score compares to previous players:\n";
     
-    printAllPlayerCards(scoreCardsPtr, scoreCardsSize);
-
-    delete[] scoreCardsPtr;
+    printAllPlayerCards(scoreCards);
     return 0;
 }
