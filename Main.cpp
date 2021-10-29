@@ -61,5 +61,7 @@ int main()
     cout << "See how your score compares to previous players:\n";
     
     printAllPlayerCards(scoreCards);
+
+    playerOne.~PlayerCard();
     return 0;
 }

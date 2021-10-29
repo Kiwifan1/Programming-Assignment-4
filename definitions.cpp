@@ -565,4 +565,5 @@ void importPlayerScoreCards(ifstream& inputFile, vector<PlayerCard>& scoreCards)
             }
         }
     }
+    player.~PlayerCard();
 }
